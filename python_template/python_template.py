@@ -1,19 +1,18 @@
 """
 This module contains examples of Python code.
 """
-import sys
 
-def do_some_prints():
-    """Do some prints."""
-    print('Hi from some prints')
-
-
-def main() -> None:
-    """Main function."""
-    print('Hello python template !')
-    sys.exit(0)
+from gui.models.main_m import Model
+from gui.views.main_v import View
+from gui.controllers.main_c import Controller
 
 
-if __name__ == '__main__':
+def main():
+    model = Model()
+    view = View()
+    controller = Controller(model, view)
+    controller.start()
+
+
+if __name__ == "__main__":
     main()
-
