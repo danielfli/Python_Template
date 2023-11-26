@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "njpwerner.autodocstring",
+        "editorconfig.editorconfig",
+        "mhutchie.git-graph",
+        "ms-python.isort",
+        "mgesbert.python-path",
+        "donjayamanne.python-environment-manager",
+        "visualstudioexptteam.vscodeintellicode",
+        "kevinrose.vsc-python-indent"
+    ]
+}
