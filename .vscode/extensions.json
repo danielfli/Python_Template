@@ -9,6 +9,7 @@
         "mgesbert.python-path",
         "donjayamanne.python-environment-manager",
         "visualstudioexptteam.vscodeintellicode",
-        "kevinrose.vsc-python-indent"
+        "kevinrose.vsc-python-indent",
+        "visualstudioexptteam.intellicode-api-usage-examples" // no sure if this is needed
     ]
 }

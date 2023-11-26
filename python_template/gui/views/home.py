@@ -1,5 +1,4 @@
-from tkinter import Frame, Label, Button
-
+from tkinter import Frame, Label, Button, ttk
 
 class HomeView(Frame):
     def __init__(self, *args, **kwargs):
@@ -15,3 +14,9 @@ class HomeView(Frame):
 
         self.signout_btn = Button(self, text="Sign Out")
         self.signout_btn.grid(row=2, column=0, padx=10, pady=10)
+
+        self.show_image_btn = Button(self, text="Show Image")
+        self.show_image_btn.grid(row=3, column=0, padx=10, pady=10)
+
+        self.label_image = ttk.Label(self)
+        self.label_image.grid(row=4, column=0, padx=1, pady=1)
