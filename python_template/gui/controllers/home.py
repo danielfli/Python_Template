@@ -17,6 +17,8 @@ class HomeController:
         """Binds controller functions with respective buttons in the view"""
         self.frame.signout_btn.config(command=self.logout)
         self.frame.show_image_btn.config(command=self.show_image)
+        self.frame.canvas_widget.bind("<ButtonPress-1>", self.scroll_start)
+        self.frame.canvas_widget.bind("<B1-Motion>", self.scroll_move)
 
     def _load_image(self):
         path_image = Path.cwd() / "data" / "assets" / "python.png"
@@ -37,3 +39,10 @@ class HomeController:
 
     def show_image(self) -> None:
         self.frame.label_image.config(image=self.image_tk)
+
+    def scroll_start(self, event):
+        self.frame.canvas_widget.scan_mark(event.x, event.y)
+
+
+    def scroll_move(self, event):
+        self.frame.canvas_widget.scan_dragto(event.x, event.y, gain=1)
