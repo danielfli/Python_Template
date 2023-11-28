@@ -99,12 +99,12 @@ class HomeController:
 
     def shift_left(self, event) -> None:
         self.frame.canvas_widget.coords(
-            self.rectangle_obj, self.rectangle1.rotate(MOVEMENT_SIGNEL_STEP)
+            self.rectangle_obj, self.rectangle1.rotate(-MOVEMENT_SIGNEL_STEP)
         )
         self.frame.canvas_widget.update()
 
     def shift_right(self, event) -> None:
         self.frame.canvas_widget.coords(
-            self.rectangle_obj, self.rectangle1.rotate(-MOVEMENT_SIGNEL_STEP)
+            self.rectangle_obj, self.rectangle1.rotate(MOVEMENT_SIGNEL_STEP)
         )
         self.frame.canvas_widget.update()
