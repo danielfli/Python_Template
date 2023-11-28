@@ -2,8 +2,8 @@ import numpy as np
 
 
 class Rectangle:
-    """ Rectangle class to generate a rectangle on a canvas
-    """
+    """Rectangle class to generate a rectangle on a canvas"""
+
     def __init__(self, canvas, a, b, canvas_height_x, canvas_width_y):
         self.canvas = canvas
         self.a = a
@@ -19,7 +19,7 @@ class Rectangle:
                 (0.5 * (self.c_x - self.a), 0.5 * (self.c_y + self.b)),
             ],
             self.c_x,
-            self.c_y
+            self.c_y,
         )
 
     def generate_rectangle(self, color="black", outline=""):
@@ -54,6 +54,13 @@ class Rectangle:
 
 
 class Polygon:
+    """Classes to generate polygons on a canvas
+    Template for this https://gist.github.com/the-lost-explorer/52663794ec852c4e1cc4a84ae5f8bd69
+
+    Returns:
+        _type_: _description_
+    """
+
     def __init__(self, canvas, vertices, canvas_height_x, canvas_width_y):
         self.vertices = vertices
         self.canvas = canvas
@@ -71,7 +78,7 @@ class Polygon:
     # def rotate(self, angle, xr, yr):
     def rotate(self, angle):
         # print(xr, yr)
-        theta = (angle * np.pi / 180)
+        theta = angle * np.pi / 180
         xr = self.vertices[0][0]
         yr = self.vertices[0][1]
         rotation = np.asarray(
