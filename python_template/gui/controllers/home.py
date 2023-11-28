@@ -50,15 +50,9 @@ class HomeController:
     def right_click_get_point(self, event) -> None:
         print("left click on x ={0} , y={1}".format(event.x, event.y))
 
-    #! Test Recangel rotate
+
     def click_enter(self, event) -> None:
         print("enter")
-        print(self.frame.canvas_widget.coords(self.rectangle_obj))
-        self.rectangle1.rotate(10)
-        self.frame.canvas_widget.coords(
-            self.rectangle_obj, self.rectangle1.get_point_list()
-        )
-        self.frame.canvas_widget.update()
 
     def _load_image(self):
         path_image = Path.cwd() / "data" / "assets" / "python.png"
