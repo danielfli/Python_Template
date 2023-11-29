@@ -22,6 +22,19 @@ class Rectangle:
             self.c_y,
         )
 
+    def _from_tupel_to_list(self, tuple):
+        list = []
+        for i in tuple:
+            for item in i:
+                list.append(round(item, 4))
+        return list
+
+    def _from_list_to_tuple(self, list):
+        _tuple = []
+        for i in range(0, len(list), 2):
+            _tuple.append((list[i], list[i + 1]))
+        return _tuple
+
     def generate_rectangle(self, color="black", outline=""):
         return self.poly.generate_polygon(color=color, outline=outline)
 
@@ -35,22 +48,10 @@ class Rectangle:
             _type_: a list of the four point of the rectangle
         """
         self.poly.rotate(angle)
-        return self.from_tupel_to_list(self.poly.get_vertices())
+        return self._from_tupel_to_list(self.poly.get_vertices())
 
-    def get_point_list(self):
-        tuple_list = self.poly.get_vertices()
-        list = []
-        for i in tuple_list:
-            for item in i:
-                list.append(round(item, 4))
-        return list
-
-    def from_tupel_to_list(self, tuple_list):
-        list = []
-        for i in tuple_list:
-            for item in i:
-                list.append(round(item, 4))
-        return list
+    def update(self,coords_list):
+        self.poly.vertices = self._from_list_to_tuple(coords_list)
 
 
 class Polygon:
