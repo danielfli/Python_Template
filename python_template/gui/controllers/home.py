@@ -29,8 +29,15 @@ class HomeController:
         """Binds controller functions with respective objcets in the view"""
         self.frame.signout_btn.config(command=self.logout)
         self.frame.show_image_btn.config(command=self.show_image)
-        self.frame.canvas_widget.bind("<ButtonPress-1>", self.scroll_start)
-        self.frame.canvas_widget.bind("<B1-Motion>", self.scroll_move)
+        # self.frame.canvas_widget.bind("<ButtonPress-1>", self.mouse_click_left)
+        self.frame.canvas_widget.bind(
+            "<ButtonRelease-1>", self.mouse_release_left
+        )
+        self.frame.canvas_widget.bind("<Motion>", self.mouse_move)
+        self.frame.canvas_widget.bind("<B1-Motion>", self.mouse_click_drag)
+        self.frame.canvas_widget.bind("<1>", self.mouseDown)
+        self.frame.canvas_widget.bind("<Button-3>", self.mouse_click_right)
+
         self.frame.canvas_widget.bind("<Left>", self.move_left)
         self.frame.canvas_widget.bind("<Right>", self.move_right)
         self.frame.canvas_widget.bind("<Shift-Left>", self.shift_left)
@@ -38,7 +45,7 @@ class HomeController:
         self.frame.canvas_widget.bind("<Up>", self.move_up)
         self.frame.canvas_widget.bind("<Down>", self.move_down)
         self.frame.canvas_widget.bind("<Return>", self.click_enter)
-        self.frame.canvas_widget.bind("<Button-3>", self.right_click_get_point)
+
         self.frame.canvas_widget.focus_set()
 
     def _bind_objects(self) -> None:
@@ -46,13 +53,6 @@ class HomeController:
             self.frame.canvas_widget, a, b, canvas_width, canvas_hight
         )
         self.rectangle_obj = self.rectangle1.generate_rectangle(color="blue")
-
-    def right_click_get_point(self, event) -> None:
-        print("left click on x ={0} , y={1}".format(event.x, event.y))
-
-
-    def click_enter(self, event) -> None:
-        print("enter")
 
     def _load_image(self):
         path_image = Path.cwd() / "data" / "assets" / "python.png"
@@ -73,29 +73,70 @@ class HomeController:
     def show_image(self) -> None:
         self.frame.label_image.config(image=self.image_tk)
 
-    def scroll_start(self, event) -> None:
-        self.frame.canvas_widget.scan_mark(event.x, event.y)
+    def mouseDown(self, event):
+        # remember where the mouse went down
+        self.lastx = event.x
+        self.lasty = event.y
 
-    def scroll_move(self, event) -> None:
-        self.frame.canvas_widget.scan_dragto(event.x, event.y, gain=1)
+    def mouseMove(self, Frame, obj ,event):
+        # whatever the mouse is over gets tagged as CURRENT for free by tk.
+        Frame.move(obj, event.x - self.lastx, event.y - self.lasty)
+        self.lastx = event.x
+        self.lasty = event.y
+
+    ########################################################################################
+    ########################### mouse control ##############################################
+    ########################################################################################
+
+    def mouse_move(self, event) -> None:
+        self.frame.label_coords.config(text=f"x: {event.x}, y: {event.y}")
+
+    #https://stackoverflow.com/questions/23479672/python-tkinter-find-overlapping-tuple more infos
+    def mouse_click_drag(self, event) -> None:
+        """Move the rectangle object on the canvas with the distance of the mouse move
+        Args:
+            event (_type_): internal tkinter event
+        """
+        self.mouseMove(self.frame.canvas_widget, self.rectangle_obj, event)
+        self.rectangle1.update(self.frame.canvas_widget.coords(self.rectangle_obj))
+
+    def mouse_click_right(self, event) -> None:
+        print("right click on x ={0} , y={1}".format(event.x, event.y))
+        # print("right click")
+
+    def mouse_release_left(self, event) -> None:
+        print("release")
+
+    ########################################################################################
+    ########################### keyboard control ##############################################
+    ########################################################################################
+
+    def click_enter(self, event) -> None:
+        print("enter")
 
     def move_left(self, event) -> None:
         self.frame.canvas_widget.move(self.rectangle_obj, -MOVEMENT_STEP, 0)
+        self.rectangle1.update(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def move_right(self, event) -> None:
         self.frame.canvas_widget.move(self.rectangle_obj, MOVEMENT_STEP, 0)
+        self.rectangle1.update(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def move_up(self, event) -> None:
         self.frame.canvas_widget.move(self.rectangle_obj, 0, -MOVEMENT_STEP)
+        self.rectangle1.update(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def move_down(self, event) -> None:
         self.frame.canvas_widget.move(self.rectangle_obj, 0, MOVEMENT_STEP)
+        self.rectangle1.update(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def shift_left(self, event) -> None:
+        print(self.frame.canvas_widget.coords(self.rectangle_obj))
         self.frame.canvas_widget.coords(
             self.rectangle_obj, self.rectangle1.rotate(-MOVEMENT_SIGNEL_STEP)
         )
         self.frame.canvas_widget.update()
+        print(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def shift_right(self, event) -> None:
         self.frame.canvas_widget.coords(
