@@ -26,8 +26,12 @@ class HomeView(Frame):
         self.label_image.grid(row=5, column=0, padx=1, pady=1)
 
         ## Canvas widget area for object
-        self.canvas_widget = Canvas(self, width=1000, height=1000, border=1)
+        self.canvas_widget = Canvas(self, width=600, height=600, border=1)
         self.canvas_widget.grid(row=6, column=0, padx=1, pady=1)
 
-
-
+        self.btn_rect = Button(self, text="rectangle")
+        self.btn_tri = Button(self, text="triangle")
+        self.btn_cir = Button(self, text="circle")
+        self.btn_rect.grid(row=7, column=1, padx=1, pady=1)
+        self.btn_tri.grid(row=7, column=2, padx=1, pady=1)
+        self.btn_cir.grid(row=8, column=1, padx=1, pady=1)

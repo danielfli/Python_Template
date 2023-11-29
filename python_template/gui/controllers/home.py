@@ -70,7 +70,7 @@ class HomeController:
         self.image_tk = ImageTk.PhotoImage(self.image1.rotate(10))
 
     def show_oval(self):
-        self.frame.canvas_widget.create_oval(
+        self.oval_1 = self.frame.canvas_widget.create_oval(
             0.5 * (canvas_width - a),
             0.5 * (canvas_hight - b),
             0.5 * (canvas_width + a),
@@ -126,12 +126,18 @@ class HomeController:
         Args:
             event (_type_): internal tkinter event
         """
-        self._mouse_move_drag_obj(
-            self.frame.canvas_widget, self.rectangle_obj, event
-        )
-        self.rectangle1.update(
-            self.frame.canvas_widget.coords(self.rectangle_obj)
-        )
+        if self.is_tag_closest_obj(event, "rect1"):
+            self._mouse_move_drag_obj(
+                self.frame.canvas_widget, self.rectangle_obj, event
+            )
+            self.rectangle1.update(
+                self.frame.canvas_widget.coords(self.rectangle_obj)
+            )
+
+        if self.is_tag_closest_obj(event, "oval"):
+            self._mouse_move_drag_obj(
+                self.frame.canvas_widget, self.oval_1, event
+            )
 
     def mouse_click_right(self, event) -> None:
         # print("right click on x ={0} , y={1}".format(event.x, event.y))
@@ -140,7 +146,6 @@ class HomeController:
 
         if self.is_tag_closest_obj(event, "oval"):
             print("oval")
-
 
     def mouse_release_left(self, event) -> None:
         print("release")
@@ -177,12 +182,10 @@ class HomeController:
         )
 
     def shift_left(self, event) -> None:
-        print(self.frame.canvas_widget.coords(self.rectangle_obj))
         self.frame.canvas_widget.coords(
             self.rectangle_obj, self.rectangle1.rotate(-MOVEMENT_SIGNEL_STEP)
         )
         self.frame.canvas_widget.update()
-        print(self.frame.canvas_widget.coords(self.rectangle_obj))
 
     def shift_right(self, event) -> None:
         self.frame.canvas_widget.coords(
