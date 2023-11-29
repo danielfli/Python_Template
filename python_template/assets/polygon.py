@@ -4,12 +4,15 @@ import numpy as np
 class Rectangle:
     """Rectangle class to generate a rectangle on a canvas"""
 
-    def __init__(self, canvas, a, b, canvas_height_x, canvas_width_y):
+    def __init__(
+        self, canvas, a, b, canvas_height_x, canvas_width_y, tag: str = ""
+    ):
         self.canvas = canvas
         self.a = a
         self.b = b
         self.c_x = canvas_height_x
         self.c_y = canvas_width_y
+        self.tag = tag
         self.poly = Polygon(
             self.canvas,
             [
@@ -20,6 +23,7 @@ class Rectangle:
             ],
             self.c_x,
             self.c_y,
+            self.tag
         )
 
     def _from_tupel_to_list(self, tuple):
@@ -36,7 +40,9 @@ class Rectangle:
         return _tuple
 
     def generate_rectangle(self, color="black", outline=""):
-        return self.poly.generate_polygon(color=color, outline=outline)
+        return self.poly.generate_polygon(
+            color=color, outline=outline
+        )
 
     def rotate(self, angle):
         """Rotates the rectangle by angle on point 1
@@ -50,7 +56,7 @@ class Rectangle:
         self.poly.rotate(angle)
         return self._from_tupel_to_list(self.poly.get_vertices())
 
-    def update(self,coords_list):
+    def update(self, coords_list):
         self.poly.vertices = self._from_list_to_tuple(coords_list)
 
 
@@ -62,15 +68,18 @@ class Polygon:
         _type_: _description_
     """
 
-    def __init__(self, canvas, vertices, canvas_height_x, canvas_width_y):
+    def __init__(
+        self, canvas, vertices, canvas_height_x, canvas_width_y, tag: str = ""
+    ):
         self.vertices = vertices
         self.canvas = canvas
         self.c_x = canvas_height_x
         self.c_y = canvas_width_y
+        self.tag = tag
 
     def generate_polygon(self, color="black", outline=""):
         return self.canvas.create_polygon(
-            self.vertices, outline=outline, fill=color
+            self.vertices, outline=outline, fill=color, tags=self.tag
         )
 
     def get_vertices(self):
