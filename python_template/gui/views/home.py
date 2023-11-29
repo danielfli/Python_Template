@@ -19,12 +19,15 @@ class HomeView(Frame):
         self.show_image_btn = Button(self, text="Show Image")
         self.show_image_btn.grid(row=3, column=0, padx=10, pady=10)
 
+        self.label_coords = Label(self, text="x: 0 , y: 0")
+        self.label_coords.grid(row=4, column=0, padx=1, pady=1)
+
         self.label_image = ttk.Label(self)
-        self.label_image.grid(row=4, column=0, padx=1, pady=1)
+        self.label_image.grid(row=5, column=0, padx=1, pady=1)
 
         ## Canvas widget area for object
         self.canvas_widget = Canvas(self, width=1000, height=1000, border=1)
-        self.canvas_widget.grid(row=5, column=0, padx=1, pady=1)
+        self.canvas_widget.grid(row=6, column=0, padx=1, pady=1)
 
 
 
