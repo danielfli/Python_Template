@@ -19,11 +19,11 @@ class Timestamp:
         """Return current time."""
         return self._ct
 
-    def generate_timestamp(self, days=0, hours=0, minutes=0, seconds=0):
+    def generate_timestamp(self, days=0, hours=0, minutes=0):
         """Generate timestamp."""
         print("current time:-", self._ct)
         new_ct = self._ct + datetime.timedelta(
-            days=days, hours=hours, minutes=minutes, seconds=seconds
+            days=days, hours=hours, minutes=minutes
         )
         print("new time:-", new_ct)
         return new_ct.timestamp()

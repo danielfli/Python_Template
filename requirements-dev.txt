@@ -35,3 +35,8 @@ Pygments>=2.16.1
 
 #frontend
 # tkinter>= is in python3
+
+#devel
+# cryptography>=41.0.7
+# pycrypto>=2.6.1
+pycryptodome>=3.19.0

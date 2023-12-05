@@ -1,39 +1,42 @@
-import array
-
+from ast import Bytes
 import os
 
+import binascii
 
-# business_secret = array.array("u", ["Hello World", "76895467"])
-
-# business_secret = array.array("B", [10, 20, 30, 40, 50])
+from numpy import byte
 
 class Store_DB:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.data = array.array("d")
+        self.data = bytearray()
 
     def load(self):
         if not os.path.exists(self.file_path):
-              raise Exception("File does not exist - please call the SUPPORT TEAM")
+            raise Exception(
+                "File does not exist - please call the SUPPORT TEAM"
+            )
 
         with open(self.file_path, "rb") as file:
-            self.data.frombytes(file.read())
+            self.data = file.read()
 
     def save(self):
         with open(self.file_path, "wb") as file:
-            file.write(self.data.tobytes())
+            file.write(self.data)
 
     def add(self, value):
-        self.data.append(value)
-
-    def remove(self, value):
-        self.data.remove(value)
+        self.data += value
 
     def get_data(self):
-        return self.data.tolist()
+        return binascii.unhexlify(self.data).decode("ascii")
 
-    def __str__(self):
-        return str(self.data.tolist())
 
-    def __repr__(self):
-        return str(self.data.tolist())
+class TranslateLicense:
+    def __init__(self, data: str = ""):
+        self.data = data
+        self.seperator = "||"
+        self.array = []
+
+    def translate(self):
+        self.array = self.data.split(self.seperator)
+        return self.array
+
