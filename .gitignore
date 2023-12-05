@@ -136,3 +136,7 @@ venv.bak/
 #.vscode - usefull for vscode options and settings
 *.code-workspace
 .history
+license.bin
+.gitignore
+public.pem
+private.pem
